@@ -1,42 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Online Banking Portal | Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-    <div class="container">
-        <a class="navbar-brand" href="index.php">Online Banking Portal</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.php">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="importDrop" role="button" data-bs-toggle="dropdown">
-                        Imports
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="import_customer_data.php">Customer Import</a></li>
-                        <li><a class="dropdown-item disabled" href="#">Staff Import (Coming Soon)</a></li>
-                        <li><a class="dropdown-item disabled" href="#">Services Import (Coming Soon)</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="pizza_data_report.php">Reports</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<?php include('_header.php'); ?>
 
 <div class="container mt-5">
     <div class="p-5 mb-4 bg-white border rounded-3 shadow-sm">
@@ -80,10 +42,4 @@
     </div>
 </div>
 
-<footer class="py-4 my-5 border-top text-center text-muted">
-    <p>Copyright &copy; 2026 Abuwa | CS 370 Database Management Systems</p>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php include('_footer.php'); ?>
