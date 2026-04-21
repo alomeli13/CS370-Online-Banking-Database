@@ -23,28 +23,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             fgetcsv($handle);
 
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                // 1. Insert into CUSTOMER
-                $stmt1 = $conn->prepare("INSERT INTO customer (Fname, Lname, Address, PhoneNumber, Email, Ssn, DateOfBirth) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt1->bind_param("sssssss", $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
-                $stmt1->execute();
-                $newCustomerID = $conn->insert_id; // Capture the ID for the next step
+                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    // 1. Insert into BRANCH
+                    // CSV columns: BranchName (0), BranchAddress (1), BranchPhone (2)
+                    $stmt1 = $conn->prepare("INSERT INTO branch (BranchName, Address, PhoneNumber) VALUES (?, ?, ?) 
+                                        ON DUPLICATE KEY UPDATE Address = VALUES(Address)");
+                    $stmt1->bind_param("sss", $data[0], $data[1], $data[2]);
+                    $stmt1->execute();
 
-                // 2. Insert into ACCOUNT (using the new CustomerID)
-                // CSV columns: AccountTypeID (7), Balance (8)
-                $stmt2 = $conn->prepare("INSERT INTO account (CustomerID, AccountTypeID, Balance, DateOpened) VALUES (?, ?, ?, NOW())");
-                $stmt2->bind_param("iid", $newCustomerID, $data[7], $data[8]);
-                $stmt2->execute();
-                $newAccountID = $conn->insert_id; // Capture the ID for the next step
+                    // If it's a new branch, we get the ID. If it exists, we might need a SELECT or use a Natural Key.
+                    // For this exercise, we'll assume new records:
+                    $newBranchID = $conn->insert_id;
 
-                // 3. Insert into TRANSACTION (using the new AccountID)
-                // CSV columns: TransactionTypeID (9), CurrencyID (10), Amount (11)
-                $stmt3 = $conn->prepare("INSERT INTO transaction (AccountID, TransactionTypeID, CurrencyID, Amount, Date) VALUES (?, ?, ?, ?, NOW())");
-                $stmt3->bind_param("iiid", $newAccountID, $data[9], $data[10], $data[11]);
+                    // 2. Insert into EMPLOYEE (using the new BranchID)
+                    // CSV columns: Fname (3), Lname (4), Position (5), Salary (6), SSN (7)
+                    $stmt2 = $conn->prepare("INSERT INTO employee (BranchID, Fname, Lname, Position, Salary, SSN) VALUES (?, ?, ?, ?, ?, ?)");
+                    $stmt2->bind_param("isssds", $newBranchID, $data[3], $data[4], $data[5], $data[6], $data[7]);
+                    $stmt2->execute();
+                    $newEmployeeID = $conn->insert_id;
 
-                if($stmt3->execute()) {
-                    $rows_inserted++;
-                }
-            }
+                    // 3. Insert into DEPENDENT (using the new EmployeeID)
+                    // CSV columns: DepFname (8), DepLname (9), Relationship (10), DepDOB (11)
+                    $stmt3 = $conn->prepare("INSERT INTO dependent (EmployeeID, Fname, Lname, Relationship, DateOfBirth) VALUES (?, ?, ?, ?, ?)");
+                    $stmt3->bind_param("issss", $newEmployeeID, $data[8], $data[9], $data[10], $data[11]);
+
+                    if($stmt3->execute()) {
+                        $rows_inserted++;
+                    }
+                }            }
             fclose($handle);
             $import_succeeded = true;
         } catch(Exception $e) {
@@ -54,30 +60,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Bank Data Import</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-    <div class="container">
-        <a class="navbar-brand" href="index.php">Online Banking Portal</a>
-        <div class="navbar-nav">
-            <a class="nav-link" href="index.php">Home</a>
-            <a class="nav-link active" href="import_customer_data.php">Data Imports</a>
-            <a class="nav-link" href="pizza_data_report.php">Financial Reports</a>
-        </div>
-    </div>
-</nav>
+<?php $current_page = 'import3'; ?>
+<?php include('_header.php'); ?>
 
 <div class="container mt-5">
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Import Financial CSV Data</h4>
+            <h4 class="mb-0">Import Staff</h4>
         </div>
         <div class="card-body">
 
@@ -94,7 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             <?php endif; ?>
 
             <p class="text-muted">
-                Select a CSV file to populate the <strong>Customer, Account, and Transaction</strong> tables.
+                Select a CSV file to populate the <strong>Branch, Employee, and Dependent</strong> tables.
                 Ensure your CSV includes all necessary columns for this 3-tier hierarchy.
             </p>
 
@@ -110,6 +100,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php include('_footer.php'); ?>

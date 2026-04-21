@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Online Banking Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Change the color and weight of the dropdown items */
+        .dropdown-item {
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            padding: 10px 20px; /* Gives it more "breathability" */
+        }
+
+        /* Add a nice background and bold text on hover */
+        .dropdown-item:hover {
+            background-color: #007bff; /* Matches your Primary Blue */
+            color: white !important;
+            font-weight: 700;
+            padding-left: 25px; /* Subtle "slide" effect */
+        }
+
+        /* Make the "Data Imports" main link bold since it's an action */
+        #importDropdown {
+            font-weight: 600;
+        }
+    </style>
+
 </head>
 <body class="bg-light">
 
@@ -16,16 +39,33 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Home</a>
+                </li>
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="importDrop" role="button" data-bs-toggle="dropdown">Imports</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="import_customer_data.php">Customer Import</a></li>
-                        <li><a class="dropdown-item disabled" href="#">Staff Import</a></li>
-                        <li><a class="dropdown-item disabled" href="#">Services Import</a></li>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Imports
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import1') ? 'active' : ''; ?>"
+                               href="import1_services.php">1. Import Services</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import2') ? 'active' : ''; ?>"
+                               href="import2_banking.php">2. Import Banking</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import3') ? 'active' : ''; ?>"
+                               href="import3_staff.php">3. Import Staff</a>
+                        </li>
                     </ul>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="pizza_data_report.php">Reports</a></li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="pizza_data_report.php">Reports</a>
+                </li>
             </ul>
         </div>
     </div>

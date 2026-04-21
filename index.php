@@ -12,33 +12,38 @@
     </div>
 
     <div class="row g-4">
+
         <div class="col-md-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Core Banking</h5>
+                    <h5 class="card-title">1. Services & Types</h5>
+                    <p class="card-text text-muted">ATMs, Currency exchange, and Account Types.</p>
+
+                    <a href="pizza_data_report.php" class="btn btn-outline-primary">View Report 1</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">2. Core Banking</h5>
                     <p class="card-text text-muted">Customer, Account, and Transaction data.</p>
                     <a href="pizza_data_report.php" class="btn btn-primary">View Report</a>
                 </div>
             </div>
         </div>
+
         <div class="col-md-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-body text-center">
-                    <h5 class="card-title">Staff & Branches</h5>
+                    <h5 class="card-title">3. Staff & Branches</h5>
                     <p class="card-text text-muted">Branch locations, Employees, and Dependents.</p>
                     <a href="#" class="btn btn-outline-primary disabled">Coming Soon</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Services</h5>
-                    <p class="card-text text-muted">Manage Loans, ATMs, and Currency rates.</p>
-                    <a href="#" class="btn btn-outline-primary disabled">Coming Soon</a>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 
