@@ -7,7 +7,7 @@ $connection_error = false;
 $connection_error_message = "";
 
 $cpm = mysqli_connect("localhost", "banking_user",
-    "banking_user", "online_banking_system");
+    "banking_user", "bank_db");
 
 
 if(mysqli_connect_errno()){

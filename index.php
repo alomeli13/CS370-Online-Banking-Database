@@ -17,9 +17,9 @@
             <div class="card h-100 shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">1. Services & Types</h5>
-                    <p class="card-text text-muted">ATMs, Currency exchange, and Account Types.</p>
+                    <p class="card-text text-muted">ATMs, Currency Exchange, and Account Types.</p>
 
-                    <a href="pizza_data_report.php" class="btn btn-outline-primary">View Report 1</a>
+                    <a href="report1_services.php" class="btn btn-outline-primary">View Report 1</a>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                 <div class="card-body text-center">
                     <h5 class="card-title">2. Core Banking</h5>
                     <p class="card-text text-muted">Customer, Account, and Transaction data.</p>
-                    <a href="pizza_data_report.php" class="btn btn-primary">View Report</a>
+                    <a href="report2_banking.php" class="btn btn-outline-primary">View Report 2</a>
                 </div>
             </div>
         </div>
@@ -38,8 +38,8 @@
             <div class="card h-100 shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">3. Staff & Branches</h5>
-                    <p class="card-text text-muted">Branch locations, Employees, and Dependents.</p>
-                    <a href="#" class="btn btn-outline-primary disabled">Coming Soon</a>
+                    <p class="card-text text-muted">Branch Locations, Employees, and Dependents.</p>
+                    <a href="report3_staff.php" class="btn btn-outline-primary">View Report 3</a>
                 </div>
             </div>
         </div>

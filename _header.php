@@ -38,7 +38,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto pe-4">
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">Home</a>
                 </li>
@@ -47,7 +47,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Imports
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
                         <li>
                             <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import1') ? 'active' : ''; ?>"
                                href="import1_services.php">1. Import Services</a>
@@ -63,8 +63,24 @@
                     </ul>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="pizza_data_report.php">Reports</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Reports
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import1') ? 'active' : ''; ?>"
+                               href="report1_services.php">1. Services Report</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import2') ? 'active' : ''; ?>"
+                               href="report2_banking.php">2. Banking Report</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import3') ? 'active' : ''; ?>"
+                               href="report3_staff.php">3. Staff Report</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
