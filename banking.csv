@@ -1,0 +1,50 @@
+﻿Fname,Lname,Address,Phone #,Email,SSN,DOB,AccountType,Balance,TransType,Currency,Amount
+John,O'Neil,123 Maple St,708-245-6758,jn@hotmail.com,234659875,1995-02-01,Checkings,9105.37,Withdrawal,USD,772.43
+Mary,O'Neil,123 Maple St,312-981-9171,maryon@yahoo.com,324654786,1963-12-04,Savings,17725.74,Purchase,USD,714.82
+Michael,Flannery,456 Oak Dr,815-534-7658,FatherMike@yahoo.com,354267398,1960-10-14,Savings,3215.11,Withdrawal,USD,195.94
+Francois,Delacourt,789 Pine Rd,309-456-8322,Fdela@gmail.com,245763487,1969-09-20,Checkings,1097.2,Deposit,USD,1074.3
+Stephen,Browder,102 Cedar Rd,815-685-2188,Sbrowder@gmail.com,242125973,1996-12-18,Checkings,5498.62,Deposit,USD,2301.12
+Kate ,O'Gara,384 Elm St,217-464-0512,kogara@mail.com,123654086,1972-01-25,Savings,20630.93,Withdrawal,USD,2109.51
+Joseph ,Herity,576 Lake Ave,708-491-5476,jh@hotmail.com,321067633,1976-05-05,Checkings,3211.51,Deposit,USD,3841.12
+Leo,McCarthy,2938 Sixth St,708-238-3770,leo333@comcast.net,324765490,1961-02-13,Savings,4676.12,Purchase,USD,679.52
+Fran,Bley,1435 Park Pl,815-463-9275,bleyday@comcast.net,297347620,1993-05-26,Savings,3477.63,Purchase,USD,372.95
+Max,Dunn,828 Church Dr,708-603-0525,dunn77@yahoo.com,156753487,1962-07-03,Savings,14920.91,Purchase,USD,665.23
+William,Ruckerman,86 N Walnut St,708-800-6386,williwoo@gmail.com,324542674,1994-06-19,Savings,6826.49,Purchase,USD,64.95
+Jim,Saddler,75 Main St,240-436-2058,jsad@yahoo.com,289079868,1997-04-25,Checkings,4041.15,Purchase,USD,73.04
+Shaneen,Mulvaney,432 S Main St,619-304-4016,shaneenm@mail.com,356467589,1969-02-13,Checkings,3913.3,Purchase,USD,512.19
+Flynn,Jones,267 Sunset Dr,815-342-5698,flyman@yahoo.com,241356754,1978-03-12,Savings,10493.59,Purchase,USD,539.44
+Gus,Jones,267 Sunset Dr,309-945-3646,gusgus@yahoo.com,156375987,1999-11-21,Checkings,1599.71,Purchase,USD,511.63
+Sylvia,Trotter,386 River Rd,815-735-2615,slyvs@mail.com,324157867,1989-12-08,Checkings,2630.11,Purchase,USD,309.77
+Christian,Becket,28 South St,309-340-3929,cb123@yahoo.com,375216535,1995-12-18,Checkings,3259.69,Deposit,USD,1688.99
+Lou,Danzas,45 Ridge Rd,623-552-2459,louhoo@mail.com,230958361,1958-04-27,Savings,3222.26,Deposit,USD,1645.72
+Jost,Hupp,288 Cherry Ave,424-286-4773,suphupp@comcast.net,346902631,1972-02-07,Savings,23045.56,Deposit,USD,2879.18
+Sergei,Lepikov,84 Chestnut Dr,815-931-3657,sergeil@comcast.net,145762970,2000-06-07,Checkings,8140.91,Withdrawal,USD,1217.11
+Dorena,Godelinsky,66 Circle Dr,469-242-6512,dorenag@comcast.net,653289045,1996-08-05,Savings,8459.8,Withdrawal,USD,777.55
+Ariane,Foss,754 Mill Pl,708-510-4446,afoss@mail.com,534216732,1990-09-09,Checkings,9166.55,Purchase,USD,348.46
+Kimberly,Gonzales,32 Lakeview Dr,815-708-3640,kogara@mail.com,423153786,1992-07-12,Savings,7434.72,Purchase,USD,798.05
+Kathy,Ruiz,13 School St,708-843-2496,kathyyy@yahoo.com,236541790,1987-08-03,Savings,19505.1,Purchase,USD,690.27
+Eric,Whitney,29 West St,708-224-5646,ghoste@gmail.com,673876297,1964-11-06,Savings,20321.79,Deposit,USD,2168.58
+Aristos,Petrou,436 Spruce St,708-770-5020,petrou@yahoo.com,234156894,1959-07-13,Checkings,7473.95,Withdrawal,USD,1430.75
+Scott,Arceneaux,46 Jefferson St,815-531-2569,scotty66@gmail.com,806234561,1971-09-28,Checkings,11355.23,Deposit,USD,3433.39
+Elizabeth,Grant,22 Shady Ln,773-704-4333,ldr@hotmail.com,167453674,1962-11-18,Savings,19394.75,Deposit,USD,3866.13
+Carlos,Robinson,166 Lincoln St,206-735-8233,carlosrob@mail.com,243678654,1976-02-10,Checkings,5669.37,Deposit,USD,2323.25
+Robyn,Fenty,56 N Hill St,815-705-4950,robynf@gmail.com,453675424,2001-12-09,Checkings,11685.15,Deposit,USD,3833.61
+Stefani,Germanotta,77 Willow Dr,708-603-3092,germanotta@comcast.net,327854905,1987-02-28,Checkings,7803.36,Purchase,USD,674.92
+Ella,O'Connor,619 Short St,708-407-4857,ellaoconnor@gmail.com,305763851,1987-10-07,Checkings,2511.8,Purchase,USD,612.38
+Farrokh,Bulsara,35 Water Ave,815-5468181,buls222@yahoo.com,368954712,1989-09-01,Checkings,7508.18,Purchase,USD,396
+Calvin,Broadus,659 Locust St,309-954-9139,cb@mail.com,423675498,1962-06-27,Savings,20652.43,Purchase,USD,199.17
+Eric,Blair,25 Ash St,305-715-7365,ericb@yahoo.com,543765424,1970-10-03,Savings,4427.2,Purchase,USD,393.93
+Samuel,Clemens,788 Poplar Ln,312-360-9413,samclem@hotmail.com,214567342,1959-09-25,Checkings,2208.52,Purchase,USD,531.2
+Charles,Dodgson,22 Central Ave,853-307=2654,cdodgson@yahoo.com,102839465,1990-03-09,Savings,14372.66,Withdrawal,USD,1839.45
+Agatha,Miller,60 Front St,404-445-2653,am313@mail.com,287341647,1968-09-25,Savings,18923.45,Purchase,USD,168.91
+Chloe,Wofford,333 East St,864-469-0718,cw@yahoo.com,523464892,1974-07-22,Savings,17122.26,Deposit,USD,2246.69
+Misty,Day,68 Vine St,661-505-6354,mday@mail.com,234168965,1988-08-04,Savings,8077.88,Deposit,USD,413.73
+Myrtle,Snow,75 Hillcrest Dr,309-642-8764,myrsno@comcast.net,245631790,1956-10-18,Checkings,3377.29,Deposit,USD,1179.07
+Madison,Montgomery,69 Birch St,312-989-8668,madmad@comcast.net,109642758,1959-12-21,Checkings,1459.39,Deposit,USD,430.26
+Betty,Page,808 Grove St,305-351-1620,betpage@yahoo.com,423456211,1957-06-03,Savings,14068.51,Withdrawal,USD,871.51
+Kyle,Spence,829 Green Dr,309-593-2131,kspence@mail.com,278490435,1986-04-18,Savings,5477.02,Purchase,USD,749.06
+Zoe,Benson,65 Riverside Dr,954-303-5118,zbenson@hotmail.com,275349605,1991-10-16,Savings,7967.44,Purchase,USD,383.65
+Cordelia,Fox,9 Cemetary Rd,908-632-0989,cfox@gmail.com,156498367,1981-04-04,Checkings,1885.63,Purchase,USD,350.53
+Donna,Tartt,369 Fairway St,224-806-5904,donnatartt@yahoo.com,352712874,1982-07-15,Checkings,10474.97,Deposit,USD,365.44
+Fiona,Good,6 Cemetary Rd,309-340-3809,fgood@gmail.com,174832658,1996-11-04,Checkings,1478.86,Purchase,USD,585.29
+Joan,Ramsey,6330 Terrence Dr,305-837-6224,joram@comcast.net,259527465,1961-04-07,Savings,6779.7,Purchase,USD,364.4
