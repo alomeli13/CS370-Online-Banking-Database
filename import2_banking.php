@@ -1,4 +1,5 @@
 <?php
+include('db_config.php');
 error_reporting(1);
 mysqli_report(MYSQLI_REPORT_ERROR);
 
@@ -9,49 +10,54 @@ $import_error_message = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
     $import_attempted = true;
-    // Using your specific database credentials
-    $conn = mysqli_connect("localhost", "banking_user", "banking_user", "bank_db");
 
-    if(mysqli_connect_errno()) {
-        $import_error_message = "Connection Failed: " . mysqli_connect_error();
-    } else {
-        try {
-            $file = $_FILES['importFile']['tmp_name'];
-            $handle = fopen($file, "r");
+    try {
+        $file = $_FILES['importFile']['tmp_name'];
+        $handle = fopen($file, "r");
 
-            // Skip the header row of the CSV
-            fgetcsv($handle);
+        // Skip the header row of the CSV
+        fgetcsv($handle);
 
-            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                // 1. Insert into CUSTOMER
-                $stmt1 = $conn->prepare("INSERT INTO customer (Fname, Lname, Address, PhoneNumber, Email, Ssn, DateOfBirth) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt1->bind_param("sssssss", $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
-                $stmt1->execute();
-                $newCustomerID = $conn->insert_id; // Capture the ID for the next step
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            // 1. Insert into CUSTOMER
+            $stmt1 = $conn->prepare("INSERT INTO customer (Fname, Lname, Address, PhoneNumber, Email, Ssn, DateOfBirth) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt1->bind_param("sssssss", $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
 
-                // 2. Insert into ACCOUNT (using the new CustomerID)
-                // CSV columns: AccountTypeID (7), Balance (8)
-                $stmt2 = $conn->prepare("INSERT INTO account (CustomerID, AccountTypeID, Balance, DateOpened) VALUES (?, ?, ?, NOW())");
-                $stmt2->bind_param("iid", $newCustomerID, $data[7], $data[8]);
-                $stmt2->execute();
-                $newAccountID = $conn->insert_id; // Capture the ID for the next step
-
-                // 3. Insert into TRANSACTION (using the new AccountID)
-                // CSV columns: TransactionTypeID (9), CurrencyID (10), Amount (11)
-                $stmt3 = $conn->prepare("INSERT INTO transaction (AccountID, TransactionTypeID, CurrencyID, Amount, Date) VALUES (?, ?, ?, ?, NOW())");
-                $stmt3->bind_param("iiid", $newAccountID, $data[9], $data[10], $data[11]);
-
-                if($stmt3->execute()) {
-                    $rows_inserted++;
-                }
+            if (!$stmt1->execute()) {
+                // This will force the catch block to trigger if the database rejects a row
+                throw new Exception("Database error: " . $stmt1->error);
             }
-            fclose($handle);
-            $import_succeeded = true;
-        } catch(Exception $e) {
-            $import_succeeded = false;
-            $import_error_message = $e->getMessage();
+            $newCustomerID = $conn->insert_id; // Capture the ID for the next step
+
+            // 2. Insert into ACCOUNT (using the new CustomerID)
+            // CSV columns: AccountTypeID (7), Balance (8)
+            $stmt2 = $conn->prepare("INSERT INTO account (CustomerID, AccountTypeID, Balance, DateOpened) VALUES (?, ?, ?, NOW())");
+            $stmt2->bind_param("iid", $newCustomerID, $data[7], $data[8]);
+
+            if (!$stmt2->execute()) {
+                // This will force the catch block to trigger if the database rejects a row
+                throw new Exception("Database error: " . $stmt2->error);
+            }
+            $newAccountID = $conn->insert_id; // Capture the ID for the next step
+
+            // 3. Insert into TRANSACTION (using the new AccountID)
+            // CSV columns: TransactionTypeID (9), CurrencyID (10), Amount (11)
+            $stmt3 = $conn->prepare("INSERT INTO transaction (AccountID, TransactionTypeID, CurrencyID, Amount, Date) VALUES (?, ?, ?, ?, NOW())");
+            $stmt3->bind_param("iiid", $newAccountID, $data[9], $data[10], $data[11]);
+
+            if (!$stmt3->execute()) {
+                // This will force the catch block to trigger if the database rejects a row
+                throw new Exception("Database error: " . $stmt3->error);
+            }
+            $rows_inserted++;
         }
+        fclose($handle);
+        $import_succeeded = true;
+    } catch(Exception $e) {
+        $import_succeeded = false;
+        $import_error_message = $e->getMessage();
     }
+
 }
 ?>
 

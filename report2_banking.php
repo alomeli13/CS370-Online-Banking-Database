@@ -1,8 +1,8 @@
 <?php
 $current_page = 'report2';
 include('_header.php');
+include('db_config.php');
 
-$conn = mysqli_connect("localhost", "banking_user", "banking_user", "bank_db");
 
 $query = "SELECT c.CustomerID, c.Fname, c.Lname, 
                  a.AccountID, a.Balance, a.AccountTypeID,
