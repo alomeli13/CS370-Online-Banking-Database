@@ -21,9 +21,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
             // 1. Insert into BRANCH
             // Updated to include City, State, Zip, and RoutingNumber
+            // CSV columns: BranchName (1), StreetAddress (2), City (3), State (4), ZipCode (5), PhoneNumber (6), RoutingNumber (7)
             $stmt1 = $conn->prepare("INSERT INTO branch (BranchName, StreetAddress, City, State, ZipCode, PhoneNumber, RoutingNumber) 
                         VALUES (?, ?, ?, ?, ?, ?, ?) 
-                        ON DUPLICATE KEY UPDATE StreetAddress = VALUES(StreetAddress)");
+                        ON DUPLICATE KEY UPDATE BranchID = LAST_INSERT_ID(BranchID)");
 
             // Updated bind_param: "sssssss" (7 strings)
             // You'll need to make sure your CSV has these extra columns!
@@ -32,31 +33,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             if (!$stmt1->execute()) {
                 throw new Exception("Branch Error: " . $stmt1->error);
             }
+            $branchID = $conn->insert_id;
 
-            // If it's a new branch, we get the ID. If it exists, we might need a SELECT or use a Natural Key.
-            // For this exercise, we'll assume new records:
-            $newBranchID = $conn->insert_id;
+            // 2. Insert into Job_Title (using the new branchID)
+            // CSV columns: BranchID (8), Job_Description (9), Salary (10)
+            $stmt2 = $conn->prepare("INSERT INTO Job_Title (BranchID, Job_Description, Salary) VALUES (?, ?, ?)");
+            $stmt2->bind_param("isd", $branchID, $data[8], $data[9]);
 
-            // 2. Insert into EMPLOYEE (using the new BranchID)
-            // CSV columns: Fname (3), Lname (4), Position (5), Salary (6), SSN (7)
-            $stmt2 = $conn->prepare("INSERT INTO employee (BranchID, Fname, Lname, Position, Salary, SSN) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt2->bind_param("isssds", $newBranchID, $data[3], $data[4], $data[5], $data[6], $data[7]);
-            $stmt2->execute();
             if (!$stmt2->execute()) {
                 // This will force the catch block to trigger if the database rejects a row
                 throw new Exception("Database error: " . $stmt2->error);
             }
-            $newEmployeeID = $conn->insert_id;
+            $jobTitleID = $conn->insert_id;
 
-            // 3. Insert into DEPENDENT (using the new EmployeeID)
-            // CSV columns: DepFname (8), DepLname (9), Relationship (10), DepDOB (11)
-            $stmt3 = $conn->prepare("INSERT INTO dependent (EmployeeID, Fname, Lname, Relationship, DateOfBirth) VALUES (?, ?, ?, ?, ?)");
-            $stmt3->bind_param("issss", $newEmployeeID, $data[8], $data[9], $data[10], $data[11]);
-
+            // 3. Insert into EMPLOYEE (using the new BranchID)
+            // CSV columns: Fname (11), Job_TitleID (12), Fname (13), Lname (14), ESSN (15)
+            $stmt3 = $conn->prepare("INSERT INTO employee (BranchID, Job_TitleID, Fname, Lname, ESSN) VALUES (?, ?, ?, ?, ?)");
+            $stmt3->bind_param("iisss", $branchID, $jobTitleID, $data[12], $data[13], $data[14]);
             if (!$stmt3->execute()) {
                 // This will force the catch block to trigger if the database rejects a row
                 throw new Exception("Database error: " . $stmt3->error);
             }
+
             $rows_inserted++;
         }
         fclose($handle);
