@@ -1,0 +1,35 @@
+﻿BranchName,StreetAddress,City,State,ZipCode,PhoneNumber,RoutingNumber,BranchID,Job_Description,Salary,BranchID,Job_TitleID,Fname,Lname,Essn
+Peoria Branch,190 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Branch Manager,50000,,,John,Smith,218095315
+Peoria Branch,191 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Mortgage Consultant ,70000,,,Jane,Johnson,218042430
+Peoria Branch,192 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Loan Officer,75000,,,Noah,Williams,218007621
+Peoria Branch,193 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Teller,50000,,,Alex,Brown,218015286
+Peoria Branch,194 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Teller,55000,,,Sam,Jones,218092414
+Peoria Branch,196 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Loan Officer,65000,,,Kelly,Miller,218097577
+Peoria Branch,197 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Loan Officer,60000,,,Kevin,Davis,218012595
+Peoria Branch,198 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Mortgage Consultant ,70000,,,Loan,Rodriguez,218053046
+Peoria Branch,200 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Teller,45000,,,Carly,Hernandez,218030093
+Peoria Branch,203 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Teller,50000,,,Maggie,Lopez,218008509
+Peoria Branch,204 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Loan Officer,60000,,,Jen,Wilson,218092913
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,309674936,,Loan Officer,55000,,,Mia,Anderson,218018171
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,309674936,,Teller,40000,,,Abby,Thomas,218084187
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,309674936,,Branch Manager,48000,,,Sophie,Taylor,218060660
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,309674936,,Mortgage Consultant ,50000,,,Michelle,Moore,218057714
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,309674936,,Teller,55000,,,Natalie,Jackson,218060451
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,309674936,,Loan Officer,80000,,,Josh,Lee,218013798
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,309674936,,Mortgage Consultant ,77000,,,Jami ,Perez,218061144
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,309674936,,Teller,65000,,,Jessie,Thompson,218049779
+Washington Branch,900 Park Street,Washington,IL,61548,840-483-5403,475409234,,Mortgage Consultant ,50000,,,Mary,Miller,218048237
+Washington Branch,900 Park Street,Washington,IL,61548,840-483-5403,475409234,,Teller,55000,,,Patricia,Jones,218036834
+Washington Branch,900 Park Street,Washington,IL,61548,840-483-5403,475409234,,Branch Manager,60000,,,Linda,Smith,218037197
+Washington Branch,900 Park Street,Washington,IL,61548,840-483-5403,475409234,,Teller,50000,,,Michael,Williams,218099026
+Washington Branch,900 Park Street,Washington,IL,61548,840-483-5403,475409234,,Loan Officer,70000,,,Mary,Roberts,218048724
+Washington Branch,900 Park Street,Washington,IL,61548,840-483-5403,475409234,,Mortgage Consultant ,75000,,,John,Davis,218067581
+Washington Branch,900 Park Street,Washington,IL,61548,840-483-5403,475409234,,Loan Officer,80000,,,James,Martinez,218076896
+Washington Branch,900 Park Street,Washington,IL,61548,840-483-5403,475409234,,Teller,55000,,,Brodie,Brown,218085298
+Germantown Branch,800 Oak Street,Germantown,IL,61758,509-239-4930,345303448,,Teller,57000,,,Brock,Shaw,218077128
+Germantown Branch,800 Oak Street,Germantown,IL,61758,509-239-4930,345303448,,Teller,56000,,,Bob,Jackson,218013213
+Germantown Branch,800 Oak Street,Germantown,IL,61758,509-239-4930,345303448,,Loan Officer,70000,,,Abby,Jordan,218094252
+Germantown Branch,800 Oak Street,Germantown,IL,61758,509-239-4930,345303448,,Branch Manager,80000,,,Natalie,Smith,218063524
+Germantown Branch,800 Oak Street,Germantown,IL,61758,509-239-4930,345303448,,Teller,60000,,,Patricia,Johnson,218062819
+Germantown Branch,800 Oak Street,Germantown,IL,61758,509-239-4930,345303448,,Loan Officer,65000,,,Linda,Adams,218018654
+Germantown Branch,800 Oak Street,Germantown,IL,61758,509-239-4930,345303448,,Mortgage Consultant ,75000,,,Jen,Notto,218021449
