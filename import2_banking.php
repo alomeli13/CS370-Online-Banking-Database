@@ -1,5 +1,14 @@
 <?php
 include('db_config.php');
+
+// Pre-populate Transaction Types if they don't exist
+$types = ['Deposit', 'Withdrawal', 'Purchase'];
+foreach ($types as $type) {
+    $stmt = $conn->prepare("INSERT IGNORE INTO Transaction_Type (TypeName) VALUES (?)");
+    $stmt->bind_param("s", $type);
+    $stmt->execute();
+}
+
 error_reporting(1);
 mysqli_report(MYSQLI_REPORT_ERROR);
 
@@ -74,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             <?php if($import_attempted): ?>
                 <?php if($import_succeeded): ?>
                     <div class="alert alert-success">
-                        <strong>Success!</strong> Imported <?php echo $rows_inserted; ?> records into the Customer table.
+                        <strong>Success!</strong> Imported <?php echo $rows_inserted; ?> records into the Customer, Account, & Transaction tables.
                     </div>
                 <?php else: ?>
                     <div class="alert alert-danger">

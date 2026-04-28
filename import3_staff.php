@@ -19,41 +19,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
         fgetcsv($handle);
 
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            // 1. Insert into BRANCH
-            // Updated to include City, State, Zip, and RoutingNumber
-            // CSV columns: BranchName (1), StreetAddress (2), City (3), State (4), ZipCode (5), PhoneNumber (6), RoutingNumber (7)
-            $stmt1 = $conn->prepare("INSERT INTO branch (BranchName, StreetAddress, City, State, ZipCode, PhoneNumber, RoutingNumber) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?) 
-                        ON DUPLICATE KEY UPDATE BranchID = LAST_INSERT_ID(BranchID)");
+            // 1. BRANCH: Look it up by name first
+            $stmtCheck = $conn->prepare("SELECT BranchID FROM branch WHERE BranchName = ?");
+            $stmtCheck->bind_param("s", $data[0]);
+            $stmtCheck->execute();
+            $res = $stmtCheck->get_result();
 
-            // Updated bind_param: "sssssss" (7 strings)
-            // You'll need to make sure your CSV has these extra columns!
-            $stmt1->bind_param("sssssss", $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
-
-            if (!$stmt1->execute()) {
-                throw new Exception("Branch Error: " . $stmt1->error);
+            if ($row = $res->fetch_assoc()) {
+                $branchID = $row['BranchID']; // Use the existing ID
+            } else {
+                // Insert new branch if it doesn't exist
+                $stmt1 = $conn->prepare("INSERT INTO branch (BranchName, StreetAddress, City, State, ZipCode, PhoneNumber, RoutingNumber) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt1->bind_param("sssssss", $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
+                $stmt1->execute();
+                $branchID = $conn->insert_id;
             }
-            $branchID = $conn->insert_id;
 
-            // 2. Insert into Job_Title (using the new branchID)
-            // CSV columns: BranchID (8), Job_Description (9), Salary (10)
+            // 2. JOB TITLE: Link to the branch we found/created
+            // Note: We still insert these per row so each employee can have their own salary record
             $stmt2 = $conn->prepare("INSERT INTO Job_Title (BranchID, Job_Description, Salary) VALUES (?, ?, ?)");
             $stmt2->bind_param("isd", $branchID, $data[8], $data[9]);
-
-            if (!$stmt2->execute()) {
-                // This will force the catch block to trigger if the database rejects a row
-                throw new Exception("Database error: " . $stmt2->error);
-            }
+            $stmt2->execute();
             $jobTitleID = $conn->insert_id;
 
-            // 3. Insert into EMPLOYEE (using the new BranchID)
-            // CSV columns: Fname (11), Job_TitleID (12), Fname (13), Lname (14), ESSN (15)
-            $stmt3 = $conn->prepare("INSERT INTO employee (BranchID, Job_TitleID, Fname, Lname, ESSN) VALUES (?, ?, ?, ?, ?)");
+            // 3. EMPLOYEE: Now everyone will correctly point to the same $branchID
+            $stmt3 = $conn->prepare("INSERT IGNORE INTO employee (BranchID, Job_TitleID, Fname, Lname, ESSN) VALUES (?, ?, ?, ?, ?)");
             $stmt3->bind_param("iisss", $branchID, $jobTitleID, $data[12], $data[13], $data[14]);
-            if (!$stmt3->execute()) {
-                // This will force the catch block to trigger if the database rejects a row
-                throw new Exception("Database error: " . $stmt3->error);
-            }
+            $stmt3->execute();
 
             $rows_inserted++;
         }
@@ -80,7 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             <?php if($import_attempted): ?>
                 <?php if($import_succeeded): ?>
                     <div class="alert alert-success">
-                        <strong>Success!</strong> Imported <?php echo $rows_inserted; ?> records into the Customer table.
+                        <strong>Success!</strong> Imported <?php echo $rows_inserted; ?> records into the Branch, Job_Title, & Employee tables.
                     </div>
                 <?php else: ?>
                     <div class="alert alert-danger">
@@ -90,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             <?php endif; ?>
 
             <p class="text-muted">
-                Select a CSV file to populate the <strong>Branch, Employee, and Dependent</strong> tables.
+                Select a CSV file to populate the <strong>Branch, Job_Title, and Employee</strong> tables.
                 Ensure your CSV includes all necessary columns for this 3-tier hierarchy.
             </p>
 

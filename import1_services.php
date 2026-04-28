@@ -85,7 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             <?php if($import_attempted): ?>
                 <?php if($import_succeeded): ?>
                     <div class="alert alert-success">
-                        <strong>Success!</strong> Processed <?php echo $rows_inserted; ?> service records.
+                        <strong>Success!</strong> Imported <?php echo $rows_inserted; ?> records into the ATM, Currency, & Account_Type tables.
                     </div>
                 <?php else: ?>
                     <div class="alert alert-danger">
