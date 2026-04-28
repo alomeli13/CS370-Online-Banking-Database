@@ -69,17 +69,18 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import1') ? 'active' : ''; ?>"
+                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'report1') ? 'active' : ''; ?>"
                                href="report1_services.php">1. Services Report</a>
                         </li>
                         <li>
-                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import2') ? 'active' : ''; ?>"
+                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'report2') ? 'active' : ''; ?>"
                                href="report2_banking.php">2. Banking Report</a>
                         </li>
                         <li>
-                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'import3') ? 'active' : ''; ?>"
+                            <a class="dropdown-item <?php echo (isset($current_page) && $current_page == 'report3') ? 'active' : ''; ?>"
                                href="report3_staff.php">3. Staff Report</a>
                         </li>
+
                     </ul>
                 </li>
             </ul>
