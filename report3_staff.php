@@ -5,7 +5,7 @@ include('db_config.php');
 
 // Updated Query: Joins Branch to Job_Title, then Job_Title to Employee
 $query = "SELECT 
-            b.BranchID, b.BranchName, b.City, b.State, 
+            b.BranchID, b.BranchName, b.City, b.State, b.PhoneNumber, b.ZipCode,
             j.Job_Description, j.Salary, 
             e.EmployeeID, e.Fname, e.Lname, e.Essn
           FROM branch b
@@ -22,7 +22,7 @@ $result = mysqli_query($conn, $query);
                 <h3 class="mb-0">Branch | Job Title | Employee Report</h3>
             </div>
             <div class="card-body p-0">
-                <table class="table table-hover mb-0">
+                <table class="table table-bordered table-hover mb-0">
                     <tbody>
                     <?php
                     $last_branch = null;
@@ -37,8 +37,13 @@ $result = mysqli_query($conn, $query);
                         // LEVEL 1: BRANCH HEADER
                         if ($last_branch != $row['BranchID']) {
                             echo "<tr class='table-dark'>
-                <td colspan='3'><i class='bi bi-building'></i> <strong>" . $row['BranchName'] . "</strong></td>
-              </tr>";
+        <td colspan='5'>
+            <div class='d-flex justify-content-between align-items-center'>
+                <span><i class='bi bi-building'></i> <strong>" . $row['BranchName'] . "</strong></span>
+                <small class='text-light'>" . $row['City'] . ", " . $row['State'] . " " . $row['ZipCode'] . " | " . $row['PhoneNumber'] . "</small>
+            </div>
+        </td>
+      </tr>";
                             $last_branch = $row['BranchID'];
                             $last_job_name = null;
                         }
@@ -61,7 +66,7 @@ $result = mysqli_query($conn, $query);
 
                             echo "<tr class='table-secondary'>
                 <td style='width: 30px;'></td>
-                <td colspan='2'>
+                <td colspan='4'>
                     <i class='bi bi-briefcase-fill'></i> <strong>" . $display_title . "</strong>
                 </td>
               </tr>";
@@ -69,15 +74,23 @@ $result = mysqli_query($conn, $query);
                         }
 
                         // LEVEL 3: EMPLOYEE ROW
+
                         echo "<tr>
-            <td style='width: 30px;'></td>
-            <td style='width: 30px;'></td>
-            <td>
-                <i class='bi bi-person'></i> " . $row['Fname'] . " " . $row['Lname'] . " 
-                <small class='text-muted ms-2'>(SSN: " . $row['Essn'] . ")</small>
-                <span class='float-end text-success small'>$" . number_format($row['Salary'], 2) . "</span>
-            </td>
-          </tr>";
+                                <td style='width: 30px;'></td>
+                                <td style='width: 30px;'></td>
+                                
+                                <td class='text-center' style='width: 45%;'>
+                                    <i class='bi bi-person'></i> " . $row['Fname'] . " " . $row['Lname'] . "
+                                </td>
+                                
+                                <td class='text-center text-muted' style='width: 25%;'>
+                                    <small>SSN: " . $row['Essn'] . "</small>
+                                </td>
+                                
+                                <td class='text-center text-success' style='width: 25%;'>
+                                    <strong>Salary: $" . number_format($row['Salary'], 2) . "</strong>
+                                </td>
+                            </tr>";
                     }
                     ?>
                     </tbody>

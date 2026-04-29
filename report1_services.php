@@ -41,7 +41,7 @@ $acc_result = mysqli_query($conn, $acc_query);
                             <td class="text-center"><?php echo $atm['StreetAddress']; ?></td>
                             <td class="text-center"><?php echo $atm['City']; ?></td>
                             <td class="text-center"><?php echo $atm['State']; ?></td>
-                            <td class="text-center text-success"><strong>$<?php echo number_format($atm['CurrentCash'], 2); ?><strong></strong></td>
+                            <td class="text-center text-success"><strong>$<?php echo number_format($atm['CurrentCash'], 2); ?></strong></td>
                         </tr>
                     <?php endwhile; ?>
                     </tbody>
