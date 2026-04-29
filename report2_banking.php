@@ -3,77 +3,140 @@ $current_page = 'report2';
 include('_header.php');
 include('db_config.php');
 
+// customer
 
-$query = "SELECT c.CustomerID, c.Fname, c.Lname, 
-                 a.AccountID, a.Balance, a.AccountTypeID,
-                 t.TransactionID, t.Amount, t.Date
-          FROM customer c
-          LEFT JOIN account a ON c.CustomerID = a.CustomerID
-          LEFT JOIN transaction t ON a.AccountID = t.AccountID
-          ORDER BY c.Lname, c.CustomerID, a.AccountID, t.Date DESC";
+$customer_query = "SELECT CustomerID, Fname, Lname, Email, PhoneNumber, DateOfBirth
+                   FROM customer
+                   ORDER BY Lname, Fname";
 
-$result = mysqli_query($conn, $query);
+$customer_result = mysqli_query($conn, $customer_query);
 ?>
 
-<div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-dark text-white">
-            <h3 class="mb-0">Customer | Account | Transaction Report</h3>
-        </div>
-        <div class="card-body p-0"> <table class="table table-hover mb-0">
-                <tbody>
-                <?php
-                $last_customer = null;
-                $last_account = null;
+    <div class="container mt-4">
+        <h2 class="mb-3">Customer Banking Activity</h2>
 
-                while($row = mysqli_fetch_assoc($result)) {
-                    // LEVEL 1: NEW CUSTOMER ROW
-                    if ($last_customer != $row['CustomerID']) {
-                        echo "<tr class='table-primary'>
-                                <td colspan='3'><strong>Customer: " . $row['Fname'] . " " . $row['Lname'] . "</strong> (ID: " . $row['CustomerID'] . ")</td>
-                              </tr>";
-                        $last_customer = $row['CustomerID'];
-                        $last_account = null; // Reset account tracking for new customer
-                    }
+        <?php while($customer = mysqli_fetch_assoc($customer_result)): ?>
 
-                    // LEVEL 2: NEW ACCOUNT ROW
-                    if ($row['AccountID'] && $last_account != $row['AccountID']) {
-                        echo "<tr class='table-light'>
-                                <td style='width: 50px;'></td>
-                                <td colspan='2' class='text-primary'>
-                                    <i class='bi bi-bank'></i> <strong>Account #" . $row['AccountID'] . "</strong> 
-                                    <span class='badge bg-info text-dark ms-2'>Type: " . $row['AccountTypeID'] . "</span>
-                                    <span class='float-end'>Current Balance: $" . number_format($row['Balance'], 2) . "</span>
-                                </td>
-                              </tr>";
+            <div class="card shadow-sm mb-3">
+                <div class="card-header bg-dark text-white py-2">
+                    <strong>
+                        <?php echo $customer['Fname'] . " " . $customer['Lname']; ?>
+                    </strong>
 
-                        // Small sub-header for transactions
-                        echo "<tr>
-                                <td></td><td></td>
-                                <td class='fw-bold text-muted small'>Transaction History</td>
-                              </tr>";
-                        $last_account = $row['AccountID'];
-                    }
+                    <small class="d-block text-white-50">
+                        Customer ID: <?php echo $customer['CustomerID']; ?> |
+                        <?php echo $customer['Email']; ?> |
+                        <?php echo $customer['PhoneNumber']; ?> |
+                        DOB: <?php echo $customer['DateOfBirth']; ?>
+                    </small>
+                </div>
 
-                    // LEVEL 3: TRANSACTION DETAIL
-                    echo "<tr>
-                            <td></td>
-                            <td style='width: 50px;'></td>
-                            <td class='small'>";
-                    if ($row['TransactionID']) {
-                        echo "<span class='text-muted'>" . $row['Date'] . "</span> | 
-                              <strong>$" . number_format($row['Amount'], 2) . "</strong> 
-                              <span class='text-secondary'>(ID: " . $row['TransactionID'] . ")</span>";
-                    } else {
-                        echo "<span class='text-italic text-muted'>No transaction history for this account.</span>";
-                    }
-                    echo "</td></tr>";
-                }
-                ?>
-                </tbody>
-            </table>
-        </div>
+                <div class="card-body p-2">
+
+                    <?php
+                    // account
+                    $account_query = "SELECT a.AccountID, a.Balance, DATE(a.DateOpened) AS DateOpened, at.TypeName AS AccountType
+                                  FROM account a, account_type at
+                                  WHERE a.AccountTypeID = at.AccountTypeID
+                                  AND a.CustomerID = " . $customer['CustomerID'] . "
+                                  ORDER BY a.AccountID";
+
+                    $account_result = mysqli_query($conn, $account_query);
+                    ?>
+
+                    <?php if(mysqli_num_rows($account_result) == 0): ?>
+                        <p class="text-muted text-center mb-0">
+                            No account found for this customer.
+                        </p>
+                    <?php endif; ?>
+
+                    <?php while($account = mysqli_fetch_assoc($account_result)): ?>
+
+                        <div class="border rounded mb-2">
+                            <div class="bg-light px-2 py-2 border-bottom">
+                                <strong>
+                                    Account #<?php echo $account['AccountID']; ?>
+                                </strong>
+
+                                <span class="badge bg-info text-dark ms-2">
+                                <?php echo $account['AccountType']; ?>
+                            </span>
+
+                                <span class="badge bg-success ms-2">
+                                Current Balance: $<?php echo number_format($account['Balance'], 2); ?>
+                            </span>
+
+                                <small class="text-muted float-end">
+                                    Opened: <?php echo $account['DateOpened']; ?>
+                                </small>
+                            </div>
+
+                            <?php
+                            // transaction
+                            $transaction_query = "SELECT t.TransactionID, t.TypeName, t.Amount, DATE(t.Date) AS Date,
+                                                     c.CurrencyCode, c.Symbol
+                                              FROM `transaction` t, currency c
+                                              WHERE t.CurrencyID = c.CurrencyID
+                                              AND t.AccountID = " . $account['AccountID'] . "
+                                              ORDER BY t.Date DESC";
+
+                            $transaction_result = mysqli_query($conn, $transaction_query);
+                            ?>
+
+                            <?php if(mysqli_num_rows($transaction_result) == 0): ?>
+                                <p class="text-muted text-center my-2">
+                                    No transaction history for this account.
+                                </p>
+                            <?php else: ?>
+
+                                <table class="table table-sm table-bordered table-hover mb-0">
+                                    <thead class="table-secondary">
+                                    <tr>
+                                        <th class="text-center">Transaction Type</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Currency</th>
+                                        <th class="text-center">Date</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <?php while($transaction = mysqli_fetch_assoc($transaction_result)): ?>
+                                        <tr>
+                                            <td class="text-center">
+                                            <span class="badge bg-primary">
+                                                <?php echo $transaction['TypeName']; ?>
+                                            </span>
+                                            </td>
+
+                                            <td class="text-center text-success">
+                                                <strong>
+                                                    <?php echo $transaction['Symbol']; ?><?php echo number_format($transaction['Amount'], 2); ?>
+                                                </strong>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <?php echo $transaction['CurrencyCode']; ?>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <?php echo $transaction['Date']; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    <?php endwhile; ?>
+
+                </div>
+            </div>
+
+        <?php endwhile; ?>
+
     </div>
-</div>
 
 <?php include('_footer.php'); ?>
