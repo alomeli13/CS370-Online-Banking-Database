@@ -5,7 +5,7 @@ include('db_config.php');
 
 // customer
 
-$customer_query = "SELECT CustomerID, Fname, Lname, Email, PhoneNumber, DateOfBirth
+$customer_query = "SELECT CustomerID, Fname, Lname, Address, Email, PhoneNumber, DateOfBirth
                    FROM customer
                    ORDER BY Lname, Fname";
 
@@ -27,6 +27,7 @@ $customer_result = mysqli_query($conn, $customer_query);
                         Customer ID: <?php echo $customer['CustomerID']; ?> |
                         <?php echo $customer['Email']; ?> |
                         <?php echo $customer['PhoneNumber']; ?> |
+                        <?php echo $customer['Address']; ?> |
                         DOB: <?php echo $customer['DateOfBirth']; ?>
                     </small>
                 </div>
