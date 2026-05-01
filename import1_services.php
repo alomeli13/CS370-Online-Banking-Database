@@ -25,7 +25,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 case 'CUR':
                     $stmt = $conn->prepare("INSERT INTO currency (CurrencyCode, CurrencyName, ExchangeRateToUSD, Symbol) 
                             VALUES (?, ?, ?, ?) 
-                            ON DUPLICATE KEY UPDATE ExchangeRateToUSD = VALUES(ExchangeRateToUSD)");
+                            ON DUPLICATE KEY UPDATE
+                            CurrencyName = VALUES(CurrencyName),
+                            ExchangeRateToUSD = VALUES(ExchangeRateToUSD),
+                            Symbol = VALUES(Symbol)");
+                    if (!$stmt) {
+                        throw new Exception("Prepare failed: " . $conn->error);
+                    }
                     $stmt->bind_param("ssds", $data[1], $data[2], $data[3], $data[4]);
 
                     if (!$stmt->execute()) {
@@ -38,7 +44,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 case 'ATM':
                     $stmt = $conn->prepare("INSERT INTO atm (StreetAddress, City, State, ZipCode, CurrentCash) 
                             VALUES (?, ?, ?, ?, ?) 
-                            ON DUPLICATE KEY UPDATE CurrentCash = VALUES(CurrentCash)");
+                            ON DUPLICATE KEY UPDATE
+                            CurrentCash = VALUES(CurrentCash)");
+                    if (!$stmt) {
+                        throw new Exception("Prepare failed: " . $conn->error);
+                    }
                     $stmt->bind_param("ssssd", $data[1], $data[2], $data[3], $data[4], $data[5]);
 
                     if (!$stmt->execute()) {
@@ -51,7 +61,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 case 'TYP':
                     $stmt = $conn->prepare("INSERT INTO account_type (TypeName, InterestRate, MonthlyFee) 
                             VALUES (?, ?, ?) 
-                            ON DUPLICATE KEY UPDATE InterestRate = VALUES(InterestRate)");
+                            ON DUPLICATE KEY UPDATE
+                            InterestRate = VALUES(InterestRate),
+                            MonthlyFee = VALUES(MonthlyFee)");
+                    if (!$stmt) {
+                        throw new Exception("Prepare failed: " . $conn->error);
+                    }
+
                     $stmt->bind_param("sdd", $data[1], $data[2], $data[3]);
 
                     if (!$stmt->execute()) {

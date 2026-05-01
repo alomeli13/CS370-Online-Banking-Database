@@ -36,10 +36,11 @@ $customer_result = mysqli_query($conn, $customer_query);
 
                     <?php
                     // account
+                    $safe_customer_id = mysqli_real_escape_string($conn, $customer['CustomerID']);
                     $account_query = "SELECT a.AccountID, a.Balance, DATE(a.DateOpened) AS DateOpened, at.TypeName AS AccountType
                                   FROM account a, account_type at
                                   WHERE a.AccountTypeID = at.AccountTypeID
-                                  AND a.CustomerID = " . $customer['CustomerID'] . "
+                                  AND a.CustomerID = $safe_customer_id
                                   ORDER BY a.AccountID";
 
                     $account_result = mysqli_query($conn, $account_query);
@@ -74,12 +75,14 @@ $customer_result = mysqli_query($conn, $customer_query);
 
                             <?php
                             // transaction
-                            $transaction_query = "SELECT t.TransactionID, t.TypeName, t.Amount, DATE(t.Date) AS Date,
-                                                     c.CurrencyCode, c.Symbol
-                                              FROM `transaction` t, currency c
-                                              WHERE t.CurrencyID = c.CurrencyID
-                                              AND t.AccountID = " . $account['AccountID'] . "
-                                              ORDER BY t.Date DESC";
+                            $safe_account_id = mysqli_real_escape_string($conn, $account['AccountID']);
+                            $transaction_query = "SELECT t.TransactionID, tt.TypeName, t.Amount, DATE(t.Date) AS Date,
+                                                         c.CurrencyCode, c.Symbol
+                                                  FROM `transaction` t
+                                                  JOIN transaction_type tt ON t.TransactionTypeID = tt.TransactionTypeID
+                                                  JOIN currency c ON t.CurrencyID = c.CurrencyID
+                                                  WHERE t.AccountID = $safe_account_id
+                                                  ORDER BY t.Date DESC";
 
                             $transaction_result = mysqli_query($conn, $transaction_query);
                             ?>

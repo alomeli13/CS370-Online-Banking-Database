@@ -1,22 +1,6 @@
 <?php
 include('db_config.php');
 
-/*pre-populate transaction types */
-$types = array(
-        'Deposit',
-        'Withdrawal',
-        'Purchase'
-);
-
-foreach($types as $type){
-    $seedStmt = $conn->prepare("
-        INSERT IGNORE INTO Transaction_Type (TypeName)
-        VALUES (?)
-    ");
-
-    $seedStmt->bind_param("s", $type);
-    $seedStmt->execute();
-}
 
 error_reporting(1);
 mysqli_report(MYSQLI_REPORT_ERROR);
@@ -44,6 +28,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 FROM customer
                 WHERE Email = ?
             ");
+            if (!$checkCustomer) {
+                throw new Exception("Prepare failed: " . $conn->error);
+            }
 
             $checkCustomer->bind_param("s", $data[4]);
             $checkCustomer->execute();
@@ -63,6 +50,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                         DateOfBirth = ?
                     WHERE CustomerID = ?
                 ");
+                if (!$updateCustomer) {
+                    throw new Exception("Prepare failed: " . $conn->error);
+                }
 
                 $updateCustomer->bind_param("ssssssi", $data[0], $data[1], $data[2], $data[3], $data[5], $data[6], $newCustomerID);
 
@@ -79,6 +69,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                     (Fname, Lname, Address, PhoneNumber, Email, Ssn, DateOfBirth)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                 ");
+                if (!$stmt1) {
+                    throw new Exception("Prepare failed: " . $conn->error);
+                }
 
                 $stmt1->bind_param("sssssss", $data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
 
@@ -96,6 +89,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 FROM account_type
                 WHERE TypeName = ?
             ");
+            if (!$getAccountType) {
+                throw new Exception("Prepare failed: " . $conn->error);
+            }
 
             $getAccountType->bind_param("s", $data[7]);
             $getAccountType->execute();
@@ -115,6 +111,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 WHERE CustomerID = ?
                 AND AccountTypeID = ?
             ");
+            if (!$checkAccount) {
+                throw new Exception("Prepare failed: " . $conn->error);
+            }
 
             $checkAccount->bind_param("ii", $newCustomerID, $accountTypeID);
             $checkAccount->execute();
@@ -130,6 +129,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                         DateOpened = ?
                     WHERE AccountID = ?
                 ");
+                if (!$updateAccount) {
+                    throw new Exception("Prepare failed: " . $conn->error);
+                }
 
                 $updateAccount->bind_param("dsi", $data[8], $data[9], $newAccountID);
 
@@ -146,6 +148,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                     (CustomerID, AccountTypeID, Balance, DateOpened)
                     VALUES (?, ?, ?, ?)
                 ");
+                if (!$stmt2) {
+                    throw new Exception("Prepare failed: " . $conn->error);
+                }
 
                 $stmt2->bind_param(
                         "iids",
@@ -169,6 +174,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 FROM currency
                 WHERE CurrencyCode = ?
             ");
+            if (!$getCurrency) {
+                throw new Exception("Prepare failed: " . $conn->error);
+            }
 
             $getCurrency->bind_param("s", $data[11]);
             $getCurrency->execute();
@@ -180,13 +188,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
 
             $getCurrency->close();
 
+            /* 1. Get the TransactionTypeID from the lookup table */
+            $getTransType = $conn->prepare("SELECT TransactionTypeID FROM transaction_type WHERE TypeName = ?");
+            if (!$getTransType) {
+                throw new Exception("Prepare failed: " . $conn->error);
+            }
+            $getTransType->bind_param("s", $data[10]); // Column 10 is the type name in your CSV
+            $getTransType->execute();
+            $getTransType->bind_result($transactionTypeID);
+            $getTransType->fetch();
+            $getTransType->close();
 
             /*check for transaction*/
             $checkTransaction = $conn->prepare("
                 SELECT TransactionID
                 FROM `transaction`
                 WHERE AccountID = ?
-                AND TypeName = ?
+                AND TransactionTypeID = ?
                 AND Amount = ?
                 AND Date = ?
             ");
@@ -195,7 +213,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 throw new Exception("Prepare failed: " . $conn->error);
             }
 
-            $checkTransaction->bind_param("isds", $newAccountID, $data[10], $data[12], $data[13]);
+            $checkTransaction->bind_param("iids", $newAccountID, $transactionTypeID, $data[12], $data[13]);
 
             $checkTransaction->execute();
             $checkTransaction->bind_result($transactionID);
@@ -230,7 +248,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
 
                 $stmt3 = $conn->prepare("
                     INSERT INTO `transaction`
-                    (AccountID, CurrencyID, TypeName, Amount, Date)
+                    (AccountID, CurrencyID, TransactionTypeID, Amount, Date)
                     VALUES (?, ?, ?, ?, ?)
                 ");
 
@@ -238,7 +256,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                     throw new Exception("Prepare failed: " . $conn->error);
                 }
 
-                $stmt3->bind_param("iisds", $newAccountID, $currencyID, $data[10], $data[12], $data[13]);
+                $stmt3->bind_param("iiids", $newAccountID, $currencyID, $transactionTypeID, $data[12], $data[13]);
 
                 if(!$stmt3->execute()) {
                     throw new Exception("Database error: " . $stmt3->error);

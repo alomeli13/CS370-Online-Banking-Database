@@ -6,12 +6,12 @@ include('db_config.php');
 // Updated Query: Joins Branch to Job_Title, then Job_Title to Employee
 $query = "SELECT 
             b.BranchID, b.BranchName, b.City, b.State, b.PhoneNumber, b.ZipCode,
-            j.Job_Description, j.Salary, 
-            e.EmployeeID, e.Fname, e.Lname, e.Essn
+            j.Job_Description, 
+            e.EmployeeID, e.Fname, e.Lname, e.Salary, e.Essn
           FROM branch b
           LEFT JOIN job_title j ON b.BranchID = j.BranchID
           LEFT JOIN employee e ON j.Job_TitleID = e.Job_TitleID
-          ORDER BY b.BranchName, j.Job_Description ASC, j.Salary DESC";
+          ORDER BY b.BranchName, j.Job_Description ASC, e.Salary DESC";
 
 $result = mysqli_query($conn, $query);
 ?>
