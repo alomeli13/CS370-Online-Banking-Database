@@ -16,11 +16,8 @@ $query = "SELECT
 $result = mysqli_query($conn, $query);
 ?>
 
-    <div class="container mt-5">
-        <div class="card shadow">
-            <div class="card-header bg-success text-white">
-                <h3 class="mb-0">Branch | Job Title | Employee Report</h3>
-            </div>
+    <div class="container mt-4">
+        <h3 class="mb-3">Branch Staff</h3>
             <div class="card-body p-0">
                 <table class="table table-bordered table-hover mb-0">
                     <tbody>
@@ -67,7 +64,7 @@ $result = mysqli_query($conn, $query);
                             echo "<tr class='table-secondary'>
                 <td style='width: 30px;'></td>
                 <td colspan='4'>
-                    <i class='bi bi-briefcase-fill'></i> <strong>" . $display_title . "</strong>
+                    <i class='bi bi-briefcase-fill' style='margin-inline-start: 80px'></i> <strong>" . $display_title . "</strong>
                 </td>
               </tr>";
                             $last_job_name = $current_job_name;
