@@ -19,10 +19,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
         fgetcsv($handle);
 
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            $data = array_map('trim', $data);
             $rowType = $data[0];
 
             switch ($rowType) {
                 case 'CUR':
+                    // Sanitize the Exchange Rate: Remove commas if they exist
+                    $cleanRate = str_replace(',', '', $data[3]);
+
                     $stmt = $conn->prepare("INSERT INTO currency (CurrencyCode, CurrencyName, ExchangeRateToUSD, Symbol) 
                             VALUES (?, ?, ?, ?) 
                             ON DUPLICATE KEY UPDATE
@@ -32,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                     if (!$stmt) {
                         throw new Exception("Prepare failed: " . $conn->error);
                     }
-                    $stmt->bind_param("ssds", $data[1], $data[2], $data[3], $data[4]);
+                    $stmt->bind_param("ssds", $data[1], $data[2], $cleanRate, $data[4]);
 
                     if (!$stmt->execute()) {
                         // This will force the catch block to trigger if the database rejects a row
