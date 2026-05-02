@@ -25,7 +25,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             /*check for customer (natural key: Email)*/
             $checkCustomer = $conn->prepare("
                 SELECT CustomerID
-                FROM customer
+                FROM Customer
                 WHERE Email = ?
             ");
             if (!$checkCustomer) {
@@ -41,7 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 $checkCustomer->close();
 
                 $updateCustomer = $conn->prepare("
-                    UPDATE customer
+                    UPDATE Customer
                     SET Fname = ?,
                         Lname = ?,
                         Address = ?,
@@ -50,6 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                         DateOfBirth = ?
                     WHERE CustomerID = ?
                 ");
+
                 if (!$updateCustomer) {
                     throw new Exception("Prepare failed: " . $conn->error);
                 }
@@ -65,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 $checkCustomer->close();
 
                 $stmt1 = $conn->prepare("
-                    INSERT INTO customer
+                    INSERT INTO Customer
                     (Fname, Lname, Address, PhoneNumber, Email, Ssn, DateOfBirth)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                 ");
@@ -86,7 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             /*get account type (import 1)*/
             $getAccountType = $conn->prepare("
                 SELECT AccountTypeID
-                FROM account_type
+                FROM Account_Type
                 WHERE TypeName = ?
             ");
             if (!$getAccountType) {
@@ -107,7 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             /* check for account (CustomerID + AccountTypeID natural key)*/
             $checkAccount = $conn->prepare("
                 SELECT AccountID
-                FROM account
+                FROM Account
                 WHERE CustomerID = ?
                 AND AccountTypeID = ?
             ");
@@ -124,7 +125,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 $checkAccount->close();
 
                 $updateAccount = $conn->prepare("
-                    UPDATE account
+                    UPDATE Account
                     SET Balance = ?,
                         DateOpened = ?
                     WHERE AccountID = ?
@@ -144,7 +145,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 $checkAccount->close();
 
                 $stmt2 = $conn->prepare("
-                    INSERT INTO account
+                    INSERT INTO Account
                     (CustomerID, AccountTypeID, Balance, DateOpened)
                     VALUES (?, ?, ?, ?)
                 ");
@@ -165,7 +166,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             /*get currency (import 1)*/
             $getCurrency = $conn->prepare("
                 SELECT CurrencyID
-                FROM currency
+                FROM Currency
                 WHERE CurrencyCode = ?
             ");
             if (!$getCurrency) {
@@ -196,7 +197,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
             /*check for transaction*/
             $checkTransaction = $conn->prepare("
                 SELECT TransactionID
-                FROM `transaction`
+                FROM `Transaction`
                 WHERE AccountID = ?
                 AND TransactionTypeID = ?
                 AND Amount = ?
@@ -217,7 +218,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 $checkTransaction->close();
 
                 $updateTransaction = $conn->prepare("
-                    UPDATE `transaction`
+                    UPDATE `Transaction`
                     SET CurrencyID = ?
                     WHERE TransactionID = ?
                 ");
@@ -237,7 +238,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                 $checkTransaction->close();
 
                 $stmt3 = $conn->prepare("
-                    INSERT INTO `transaction`
+                    INSERT INTO `Transaction`
                     (AccountID, CurrencyID, TransactionTypeID, Amount, Date)
                     VALUES (?, ?, ?, ?, ?)
                 ");
