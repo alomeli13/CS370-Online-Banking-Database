@@ -84,8 +84,6 @@
             <dt>DateOfBirth</dt>
             <dd>Customer's date of birth. Not null.</dd>
 
-            <dt>LastLogin</dt>
-            <dd>Timestamp of last login.</dd>
         </dl>
     </section>
 
@@ -244,8 +242,6 @@
             <dt>Job_Description</dt>
             <dd>Description of the job.</dd>
 
-            <dt>Salary</dt>
-            <dd>Base salary for the job title.</dd>
         </dl>
     </section>
 
@@ -267,6 +263,9 @@
             <dt>Lname</dt>
             <dd>Employee's last name. Not null.</dd>
 
+            <dt>Salary</dt>
+            <dd>Base salary for the job title.</dd>
+
             <dt>Essn</dt>
             <dd>Employee's Social Security Number. Unique and not null.</dd>
         </dl>
@@ -287,8 +286,6 @@
             <dt>Lname</dt>
             <dd>Dependent's last name. Not null.</dd>
 
-            <dt>Essn</dt>
-            <dd>Foreign key referencing Employee.Essn.</dd>
         </dl>
     </section>
 
