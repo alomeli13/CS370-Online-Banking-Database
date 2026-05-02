@@ -152,13 +152,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                     throw new Exception("Prepare failed: " . $conn->error);
                 }
 
-                $stmt2->bind_param(
-                        "iids",
-                        $newCustomerID,
-                        $accountTypeID,
-                        $data[8],
-                        $data[9]
-                );
+                $stmt2->bind_param("iids", $newCustomerID, $accountTypeID, $data[8], $data[9]);
 
                 if(!$stmt2->execute()) {
                     throw new Exception("Database error: " . $stmt2->error);
@@ -188,12 +182,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
 
             $getCurrency->close();
 
-            /* 1. Get the TransactionTypeID from the lookup table */
+            /*get the TransactionTypeID*/
             $getTransType = $conn->prepare("SELECT TransactionTypeID FROM transaction_type WHERE TypeName = ?");
             if (!$getTransType) {
                 throw new Exception("Prepare failed: " . $conn->error);
             }
-            $getTransType->bind_param("s", $data[10]); // Column 10 is the type name in your CSV
+            $getTransType->bind_param("s", $data[10]); //TypeName
             $getTransType->execute();
             $getTransType->bind_result($transactionTypeID);
             $getTransType->fetch();
@@ -232,11 +226,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                     throw new Exception("Prepare failed: " . $conn->error);
                 }
 
-                $updateTransaction->bind_param(
-                        "ii",
-                        $currencyID,
-                        $transactionID
-                );
+                $updateTransaction->bind_param("ii", $currencyID, $transactionID);
 
                 if(!$updateTransaction->execute()) {
                     throw new Exception("Database error: " . $updateTransaction->error);
