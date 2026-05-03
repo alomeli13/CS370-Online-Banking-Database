@@ -282,7 +282,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                     <?php if($import_succeeded): ?>
                         <div class="alert alert-success">
                             <strong>Success!</strong>
-                            Imported or updated <?php echo $rows_inserted; ?> records into the Customer, Account, & Transaction tables.
+                            Imported/Updated <?php echo $rows_inserted; ?> records into the Customer, Account, & Transaction tables.
                         </div>
                     <?php else: ?>
                         <div class="alert alert-danger">

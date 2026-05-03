@@ -12,24 +12,28 @@ $customer_query = "SELECT CustomerID, Fname, Lname, Address, Email, PhoneNumber,
 $customer_result = mysqli_query($conn, $customer_query);
 ?>
 
-    <div class="container mt-4">
-        <h2 class="mb-3">Customer Banking Activity</h2>
+    <div class="container mt-5">
+        <h1 class="mb-4">Customer Banking Activity</h1>
 
         <?php while($customer = mysqli_fetch_assoc($customer_result)): ?>
 
             <div class="card shadow-sm mb-3">
-                <div class="card-header bg-dark text-white py-2">
-                    <strong>
-                        <?php echo $customer['Fname'] . " " . $customer['Lname']; ?>
-                    </strong>
+                <div class="card-header bg-dark text-white p-2">
+                    <div class="d-flex align-items-center">
+                        <div class="pe-3">
+                            <h4 class="m-0"><?php echo $customer['Fname'] . " " . $customer['Lname']; ?></h4>
+                        </div>
 
-                    <small class="d-block text-white-50">
-                        Customer ID: <?php echo $customer['CustomerID']; ?> |
-                        <?php echo $customer['Email']; ?> |
-                        <?php echo $customer['PhoneNumber']; ?> |
-                        <?php echo $customer['Address']; ?> |
-                        DOB: <?php echo $customer['DateOfBirth']; ?>
-                    </small>
+                        <div class="ms-auto">
+                            <div class="d-flex align-items-center small">
+                                <div class="px-2"><strong>ID:</strong> <?php echo $customer['CustomerID']; ?></div>
+                                <div class="px-2 border-start"><strong>Phone:</strong> <?php echo $customer['PhoneNumber']; ?></div>
+                                <div class="px-2 border-start"><strong>Email:</strong> <?php echo $customer['Email']; ?></div>
+                                <div class="px-2 border-start"><strong>DOB:</strong> <?php echo $customer['DateOfBirth']; ?></div>
+                                <div class="px-2 border-start"><strong>Address:</strong> <?php echo $customer['Address']; ?></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card-body p-2">
@@ -54,21 +58,23 @@ $customer_result = mysqli_query($conn, $customer_query);
 
                     <?php while($account = mysqli_fetch_assoc($account_result)): ?>
 
-                        <div class="border rounded mb-2">
-                            <div class="bg-light px-2 py-2 border-bottom">
-                                <strong>
-                                    Account #<?php echo $account['AccountID']; ?>
-                                </strong>
+                        <div class="border rounded mb-2 ms-5">
+                            <div class="bg-light px-3 py-3 border-bottom d-flex align-items-center">
+                                <h5 class="m-0">
+                                    <strong>
+                                     Account #<?php echo $account['AccountID']; ?>
+                                    </strong>
+                                </h5>
 
-                                <span class="badge bg-info text-dark ms-2">
-                                <?php echo $account['AccountType']; ?>
-                            </span>
+                                <span class="badge bg-info text-dark ms-3">
+            <?php echo $account['AccountType']; ?>
+        </span>
 
                                 <span class="badge bg-success ms-2">
-                                Current Balance: $<?php echo number_format($account['Balance'], 2); ?>
-                            </span>
+            Current Balance: $<?php echo number_format($account['Balance'], 2); ?>
+        </span>
 
-                                <small class="text-muted float-end">
+                                <small class="text-muted ms-auto">
                                     Opened: <?php echo $account['DateOpened']; ?>
                                 </small>
                             </div>

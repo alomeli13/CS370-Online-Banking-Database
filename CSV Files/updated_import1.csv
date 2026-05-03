@@ -1,0 +1,28 @@
+﻿Prefix,Col1,Col2,Col3,Col4,Col5
+CUR,USD, US Dollar,1,$,
+CUR, EUR, Euro,0.85,€,
+CUR, GBP, British Pound,0.74,£,
+CUR, JPY, Japanese Yen,157,¥,
+CUR, CAD, Canadian Dollar,1.36,$,
+CUR, NGN, Nigerian Naira,"1,374.30",₦,
+CUR, CHF, Swiss Franc,0.78,Fr,
+CUR, CNY, Chinese Yuan,6.83,¥,
+CUR, INR, Indian Rupee,94.91,₹,
+CUR, MXN, Mexican Peso,17.45,$,
+TYP, Checking,0.01,10,,
+TYP, Savings,0.04,0,,
+TYP, Business,0.02,25,,
+TYP, Student,0.03,0,,
+TYP, Joint,0.035,5,,
+TYP, Investment,0.06,15,,
+TYP, Retirement,0.07,0,,
+ATM, Main St, Peoria, IL,61615,0
+ATM, University Ave, Peoria, IL,61614,0
+ATM, Knoxville Ave, Peoria, IL,61603,0
+ATM, Elmwood Ave, Peoria, IL,61606,0
+ATM, War Memorial Dr, Peoria, IL,61613,0
+ATM, Diversey Ave, Chicago, IL,60614,0
+ATM, Cicero Ave, Chicago, IL,60639,0
+ATM, Pulaski Rd, Chicago, IL,60624,0
+ATM, North Ave, Chicago, IL,60647,0
+ATM, Madison St, Chicago, IL,60612,0

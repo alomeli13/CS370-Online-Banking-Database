@@ -17,7 +17,7 @@ $acc_result = mysqli_query($conn, $acc_query);
 ?>
 
     <div class="container mt-5">
-        <h2 class="mb-4">Bank Services</h2>
+        <h1 class="mb-4">Bank Services</h1>
 
         <div class="card shadow mb-5">
             <div class="card-header bg-dark text-white">

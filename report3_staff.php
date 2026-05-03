@@ -16,8 +16,8 @@ $query = "SELECT
 $result = mysqli_query($conn, $query);
 ?>
 
-    <div class="container mt-4">
-        <h3 class="mb-3">Branch Staff</h3>
+    <div class="container mt-5">
+        <h1 class="mb-4">Branch Staff Directory</h1>
             <div class="card-body p-0">
                 <table class="table table-bordered table-hover mb-0">
                     <tbody>
@@ -34,13 +34,18 @@ $result = mysqli_query($conn, $query);
                         // LEVEL 1: BRANCH HEADER
                         if ($last_branch != $row['BranchID']) {
                             echo "<tr class='table-dark'>
-        <td colspan='5'>
-            <div class='d-flex justify-content-between align-items-center'>
-                <span><i class='bi bi-building'></i> <strong>" . $row['BranchName'] . "</strong></span>
-                <small class='text-light'>" . $row['City'] . ", " . $row['State'] . " " . $row['ZipCode'] . " | " . $row['PhoneNumber'] . "</small>
-            </div>
-        </td>
-      </tr>";
+            <td colspan='5' class='p-2'>
+                <div class='d-flex align-items-center'>
+                    <h4 class='m-0 pe-3'>" . htmlspecialchars($row['BranchName']) . "</h4>
+                    
+                    <div class='ms-auto d-flex align-items-center small'>
+                        <div class='px-2'><strong>Location:</strong> " . $row['City'] . ", " . $row['State'] . "</div>
+                        <div class='px-2 border-start'><strong>ZipCode:</strong> " . $row['ZipCode'] . "</div>
+                        <div class='px-2 border-start'><strong>Phone:</strong> " . $row['PhoneNumber'] . "</div>
+                    </div>
+                </div>
+            </td>
+          </tr>";
                             $last_branch = $row['BranchID'];
                             $last_job_name = null;
                         }
@@ -62,11 +67,11 @@ $result = mysqli_query($conn, $query);
                             }
 
                             echo "<tr class='table-secondary'>
-                <td style='width: 30px;'></td>
-                <td colspan='4'>
-                    <i class='bi bi-briefcase-fill' style='margin-inline-start: 80px'></i> <strong>" . $display_title . "</strong>
-                </td>
-              </tr>";
+                                    <td style='width: 30px;'></td>
+                                    <td colspan='4'>
+                                        <i class='bi bi-briefcase-fill' style='margin-inline-start: 80px'></i> <strong>" . $display_title . "</strong>
+                                    </td>
+                                  </tr>";
                             $last_job_name = $current_job_name;
                         }
 

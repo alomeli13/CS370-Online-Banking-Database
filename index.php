@@ -28,7 +28,7 @@
             <div class="card h-100 shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">2. Core Banking</h5>
-                    <p class="card-text text-muted">Customer, Account, and Transaction data.</p>
+                    <p class="card-text text-muted">Customer, Account, and Transaction Data.</p>
                     <a href="report2_banking.php" class="btn btn-outline-primary">View Report 2</a>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="card h-100 shadow-sm">
                 <div class="card-body text-center">
                     <h5 class="card-title">3. Staff & Branches</h5>
-                    <p class="card-text text-muted">Branch Locations, Employees, and Dependents.</p>
+                    <p class="card-text text-muted">Branch Locations, Job Titles, and Employees.</p>
                     <a href="report3_staff.php" class="btn btn-outline-primary">View Report 3</a>
                 </div>
             </div>
