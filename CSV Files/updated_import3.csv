@@ -1,0 +1,14 @@
+﻿BranchName,StreetAddress,City,State,ZipCode,PhoneNumber,RoutingNumber,BranchID,Job_Description,BranchID_1,Job_TitleID,Fname,Lname,Salary,Essn
+Peoria Branch,190 Adams Street,Peoria,IL,61525,943-541-1927,834574034,,Branch Manager,,,John,Smith,95052,218095315
+Peoria Branch,191 Adams Street,Peoria,IL,61525,380-234-2123,542745447,,Mortgage Consultant ,,,Jane,Johnson,68942,218042430
+Peoria Branch,192 Adams Street,Peoria,IL,61525,855-890-2964,923844807,,Loan Officer,,,Noah,Williams,54395,218007621
+Peoria Branch,193 Adams Street,Peoria,IL,61525,390-202-8535,834574034,,Teller,,,Alex,Brown,53618,218015286
+Peoria Branch,197 Adams Street,Peoria,IL,61525,380-234-2123,864708483,,Loan Officer,,,Kevin,Davis,83520,218012595
+Peoria Branch,198 Adams Street,Peoria,IL,61525,380-234-2123,262121288,,Mortgage Consultant ,,,Loan,Rodriguez,77382,218053046
+Peoria Branch,200 Adams Street,Peoria,IL,61525,380-234-2123,834574034,,Teller,,,Carly,Hernandez,82472,218030093
+Peoria Branch,203 Adams Street,Peoria,IL,61525,531-490-8389,880825475,,Teller,,,Maggie,Lopez,97873,218008509
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,309674936,,Loan Officer,,,Mia,Anderson,44380,218018171
+East Peoria Branch,1400 Camp Street,East Peoria ,IL,61611,903-345-3455,746586845,,Mortgage Consultant ,,,Michelle,Moore,65764,218057714
+Washington Branch,900 Park Street,Washington,IL,61548,840-483-5403,520630070,,Loan Officer,,,Mary,Roberts,58638,218048724
+Germantown Branch,800 Oak Street,Germantown,IL,61758,496-148-3309,345303448,,Teller,,,Bob,Jackson,60884,218013213
+Germantown Branch,800 Oak Street,Germantown,IL,61758,785-950-4459,345303448,,Mortgage Consultant ,,,Jen,Notto,91071,218021449
