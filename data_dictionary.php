@@ -1,31 +1,28 @@
-<?php $current_page = 'import3'; ?>
-<?php include('_header.php'); ?>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Banking System Entities</title>
-        <style>
-            section {
-                margin: 40px;
-            }
-            h2 {
-                border-bottom: 2px solid #333;
-                padding-bottom: 5px;
-            }
-            dl {
-                margin-top: 15px;
-            }
-            dt {
-                font-weight: bold;
-                margin-top: 10px;
-            }
-            dd {
-                margin-left: 20px;
-                color: #444;
-            }
-        </style>
-    </head>
+<?php include('_header.php');?>
+    <style>
+        section {
+            margin: 40px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        dl {
+            margin-top: 15px;
+        }
+
+        dt {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        dd {
+            margin-left: 20px;
+            color: #444;
+        }
+    </style>
     <body>
 
     <section>
@@ -290,6 +287,5 @@
     </section>
 
     </body>
-    </html>
 
-<?php include('_footer.php'); ?>
+<?php include('_footer.php');?>
