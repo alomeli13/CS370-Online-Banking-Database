@@ -8,6 +8,7 @@ $import_succeeded = false;
 $rows_inserted = 0;
 $import_error_message = "";
 
+// Check if the form was submitted and a file was uploaded
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
     $import_attempted = true;
 

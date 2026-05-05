@@ -6,6 +6,7 @@
     <title>Online Banking Portal</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Custom CSS for dropdowns -->
     <style>
         /* Change the color and weight of the dropdown items */
         .dropdown-item {
@@ -31,6 +32,7 @@
 </head>
 <body class="bg-light">
 
+<!-- Navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
     <div class="container">
         <a class="navbar-brand" href="index.php">Online Banking Portal</a>
@@ -51,6 +53,7 @@
                     <a class="nav-link" href="banking_ERD_page.php">ERD</a>
                 </li>
 
+                <!-- Imports dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Imports
@@ -71,6 +74,7 @@
                     </ul>
                 </li>
 
+                <!--Reports dropdown -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Reports

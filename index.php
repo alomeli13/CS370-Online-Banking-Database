@@ -1,6 +1,9 @@
 <?php include('_header.php'); ?>
 
+
 <div class="container mt-5">
+
+    <!-- Dashboard Header -->
     <div class="p-5 mb-4 bg-white border rounded-3 shadow-sm">
         <div class="container-fluid py-5 text-center">
             <h1 class="display-5 fw-bold">Secure Banking Management</h1>
@@ -12,7 +15,7 @@
     </div>
 
     <div class="row g-4">
-
+        <!-- Report 1 Card -->
         <div class="col-md-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-body text-center">
@@ -24,6 +27,7 @@
             </div>
         </div>
 
+        <!-- Report 2 Card -->
         <div class="col-md-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-body text-center">
@@ -34,6 +38,7 @@
             </div>
         </div>
 
+        <!-- Report 3 Card -->
         <div class="col-md-4">
             <div class="card h-100 shadow-sm">
                 <div class="card-body text-center">

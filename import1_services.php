@@ -8,6 +8,7 @@ $import_succeeded = false;
 $rows_inserted = 0;
 $import_error_message = "";
 
+// Check if the form was submitted and a file was uploaded
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
     $import_attempted = true;
 
@@ -18,13 +19,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
         // Skip the header row of the CSV
         fgetcsv($handle);
 
+        // Loop through each row of the CSV
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
             $data = array_map('trim', $data);
             $rowType = $data[0];
 
+            // Determine which table to insert into based on the prefix (CUR, ATM, or TYP)
             switch ($rowType) {
                 case 'CUR':
-                    // Sanitize the Exchange Rate: Remove commas if they exist
+                    // Remove commas from currency rates (e.g., 1,374.30 becomes 1374.30)
                     $cleanRate = str_replace(',', '', $data[3]);
 
                     $stmt = $conn->prepare("INSERT INTO currency (CurrencyCode, CurrencyName, ExchangeRateToUSD, Symbol) 
@@ -46,6 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                     break;
 
                 case 'ATM':
+                    // Insert or update ATM location and cash data
                     $stmt = $conn->prepare("INSERT INTO atm (StreetAddress, City, State, ZipCode, CurrentCash) 
                             VALUES (?, ?, ?, ?, ?) 
                             ON DUPLICATE KEY UPDATE
@@ -63,6 +67,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES['importFile'])) {
                     break;
 
                 case 'TYP':
+                    // Insert or update Account Type interest rates and fees
                     $stmt = $conn->prepare("INSERT INTO account_type (TypeName, InterestRate, MonthlyFee) 
                             VALUES (?, ?, ?) 
                             ON DUPLICATE KEY UPDATE
