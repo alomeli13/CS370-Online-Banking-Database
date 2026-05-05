@@ -162,10 +162,10 @@
             <dd>Unique identifier for an account. Auto-incrementing and not null.</dd>
 
             <dt>CustomerID</dt>
-            <dd>Foreign key referencing Customer.CustomerID. Not null.</dd>
+            <dd>Foreign key referencing CustomerID from Customer. Not null.</dd>
 
             <dt>AccountTypeID</dt>
-            <dd>Foreign key referencing Account_Type.AccountTypeID. Unique and not null.</dd>
+            <dd>Foreign key referencing AccountTypeID from Account_Type. Unique and not null.</dd>
 
             <dt>Balance</dt>
             <dd>Current account balance. Not null.</dd>
@@ -185,10 +185,10 @@
             <dd>Unique identifier for the loan. Auto-incrementing and not null.</dd>
 
             <dt>CustomerID</dt>
-            <dd>Foreign key referencing Customer.CustomerID. Not null.</dd>
+            <dd>Foreign key referencing CustomerID from Customer. Not null.</dd>
 
             <dt>BranchID</dt>
-            <dd>Foreign key referencing Branch.BranchID. Not null.</dd>
+            <dd>Foreign key referencing BranchID from Branch. Not null.</dd>
 
             <dt>InterestRate</dt>
             <dd>Loan interest rate. Not null.</dd>
@@ -211,13 +211,13 @@
             <dd>Unique identifier for the transaction. Auto-incrementing and not null.</dd>
 
             <dt>TransactionTypeID</dt>
-            <dd>Foreign key referencing Transaction_Type.TransactionTypeID. Not null.</dd>
+            <dd>Foreign key referencing TransactionTypeID from Transaction_Type. Not null.</dd>
 
             <dt>AccountID</dt>
-            <dd>Foreign key referencing Account.AccountID. Not null.</dd>
+            <dd>Foreign key referencing AccountID from Account. Not null.</dd>
 
             <dt>CurrencyID</dt>
-            <dd>Foreign key referencing Currency.CurrencyID. Not null.</dd>
+            <dd>Foreign key referencing CurrencyID from Currency. Not null.</dd>
 
             <dt>Amount</dt>
             <dd>Transaction amount. Not null.</dd>
@@ -234,7 +234,7 @@
             <dd>Unique identifier for a job title. Auto-incrementing and not null.</dd>
 
             <dt>BranchID</dt>
-            <dd>Foreign key referencing Branch.BranchID. Not null.</dd>
+            <dd>Foreign key referencing BranchID from Branch. Not null.</dd>
 
             <dt>Job_Description</dt>
             <dd>Description of the job.</dd>
@@ -249,10 +249,10 @@
             <dd>Unique identifier for the employee. Auto-incrementing and not null.</dd>
 
             <dt>BranchID</dt>
-            <dd>Foreign key referencing Branch.BranchID. Not null.</dd>
+            <dd>Foreign key referencing BranchID from Branch. Not null.</dd>
 
             <dt>Job_TitleID</dt>
-            <dd>Foreign key referencing Job_Title.Job_TitleID.</dd>
+            <dd>Foreign key referencing Job_TitleID from Job_Title.</dd>
 
             <dt>Fname</dt>
             <dd>Employee's first name. Not null.</dd>
@@ -275,7 +275,7 @@
             <dd>Unique identifier for the dependent. Auto-incrementing and not null.</dd>
 
             <dt>EmployeeID</dt>
-            <dd>Foreign key referencing Employee.EmployeeID. Not null.</dd>
+            <dd>Foreign key referencing EmployeeID from Employee. Not null.</dd>
 
             <dt>Fname</dt>
             <dd>Dependent's first name. Not null.</dd>
